@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .root,
+  #root,
+  #docs-root {
+    --soft-brown: #babca6;
+    --dark-brown: #595110;
+    --gradient-color: linear-gradient(to left, #888255, #595110);
+  }
+
+  header {
+    font-family: "Segoe UI";
+  }
+
+  span {
+    color: #595110;
+    font-family: "Segoe UI";
+    font-size: 1, 125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  h1 {
+    color: #595110;
+    /* font-family: Inter; */
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  h2 {
+    color: var(--Primary, rgba(89, 81, 16, 0.6));
+    /* H1 Mobile */
+    font-family: "Segoe UI";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  p {
+    color: #595110;
+    /* font-family: Inter; */
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .bg-gradient {
+    background: var(--gradient-color);
+  }
+
+  .cta {
+    color: #fff;
+    font-family: "Segoe UI";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: 0.2px;
+  }
+
+  .add-cta,
+  .admin {
+    color: #fff;
+    text-align: center;
+    font-family: "Segoe UI";
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .search {
+    box-shadow: 0px 4px 8px 0px rgba(89, 81, 16, 0.3);
+
+    .search_text {
+      color: var(--Primary, rgba(89, 81, 16, 0.6));
+
+      font-family: "Segoe UI";
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+  }
+
+  textarea,
+  input,
+  label,
+  .label,
+  select option {
+    width: 20rem;
+    /* height: 1.125rem; */
+    color: var(--Title, #000);
+    /* H2 Mobile */
+    font-family: "Segoe UI";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+}
+
+input,
+.input,
+textarea {
+  @apply w-full border my-1 py-0.5 px-2 rounded-lg border-zinc-800;
+}
