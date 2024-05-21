@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-
-const sheepSchema = new mongoose.Schema({
+const sheepSchema = new Schema(
+  {
     name: String,
     price: Number,
     type: String,
@@ -13,8 +14,10 @@ const sheepSchema = new mongoose.Schema({
     category: String,
     status: String,
     photos: [String],
-});
+  },
+  { timestamps: true }
+);
 
-const SheepModel = mongoose.model('Sheep', sheepSchema);
+const SheepModel = mongoose.model("Sheep", sheepSchema);
 
 module.exports = SheepModel;

@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html{
+    scroll-behavior: smooth;
+  }
+  
   .root,
   #root,
   #docs-root {
@@ -100,6 +104,119 @@
     /* H2 Mobile */
     font-family: "Segoe UI";
     font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .h1-card {
+    color: var(--Title, #000);
+    font-family: "Segoe UI";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .desc-card {
+    color: var(--Subtitle, rgba(0, 0, 0, 0.6));
+    font-family: "Segoe UI";
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .price-card {
+    color: #000;
+    font-family: "Segoe UI";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .edit-card {
+    color: #fff;
+    text-align: center;
+    font-family: "Segoe UI";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+  }
+
+  .detail-name {
+    color: #000;
+
+    /* H2 Mobile */
+    font-family: "Segoe UI";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .detail-price {
+    color: #595110;
+
+    /* H1 Mobile */
+    font-family: "Segoe UI";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .detail-heading {
+    color: #000;
+
+    /* Text Mobile */
+    font-family: "Segoe UI";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .detail-specs-name {
+    color: var(--Subtitle, rgba(0, 0, 0, 0.6));
+    text-align: center;
+
+    /* Text Mobile */
+    font-family: "Segoe UI";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .detail-specs {
+    color: #595110;
+    text-align: center;
+
+    /* Text Mobile */
+    font-family: "Segoe UI";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .detail-desc {
+    color: var(--Subtitle, rgba(0, 0, 0, 0.6));
+    font-family: "Segoe UI";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 350;
+    line-height: normal;
+  }
+
+  .detail-button {
+    color: #fff;
+    text-align: center;
+    font-family: "Segoe UI";
+    font-size: 12px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
