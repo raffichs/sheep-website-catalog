@@ -9,6 +9,7 @@ export default {
       colors: {
         "soft-brown": "var(--soft-brown)",
         "dark-brown": "var(--dark-brown)",
+        "dark-green": "var(--dark-green)",
         "gradient-color": "var(--gradient-color)",
       },
     },

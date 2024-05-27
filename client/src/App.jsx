@@ -7,6 +7,7 @@ import axios from 'axios'
 import AdminPage from './pages/admin/AdminPage'
 import AddPage from './pages/admin/AddPage'
 import CardPage from './pages/user/CardPage'
+import EditPage from './pages/admin/EditPage'
 
 axios.defaults.baseURL = "http://localhost:3001"
 axios.defaults.withCredentials = true
@@ -19,7 +20,8 @@ function App() {
       <Route path='/register' element={<RegisterPage />}/>
       <Route path='/admin' element={<AdminPage />}/>
       <Route path='/add' element={<AddPage />}/>
-      <Route path='/card/:id' element={<CardPage />} />
+      <Route path='/:id' element={<CardPage />} />
+      <Route path='/edit/:id' element={<EditPage />} />
     </Routes>
   )
 }

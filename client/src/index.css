@@ -3,16 +3,17 @@
 @tailwind utilities;
 
 @layer base {
-  html{
+  html {
     scroll-behavior: smooth;
   }
-  
+
   .root,
   #root,
   #docs-root {
     --soft-brown: #babca6;
     --dark-brown: #595110;
-    --gradient-color: linear-gradient(to left, #888255, #595110);
+    --dark-green: #354a32;
+    --gradient-color: linear-gradient(248deg, #73a03d 4.93%, #43633e 94.89%);
   }
 
   header {
@@ -20,9 +21,9 @@
   }
 
   span {
-    color: #595110;
+    color: #f5f3a6;
     font-family: "Segoe UI";
-    font-size: 1, 125rem;
+    font-size: 15px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -220,6 +221,47 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+  }
+
+  .contacts div {
+    color: #f5f3a6;
+    font-family: "Segoe UI";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  hr {
+    background: rgba(245, 243, 166, 0.6);
+  }
+
+  .cr {
+    color: rgba(245, 243, 166, 0.6);
+    font-family: Montserrat;
+    font-size: 4px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #354a32;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto; 
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
 

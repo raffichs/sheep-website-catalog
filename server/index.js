@@ -55,6 +55,7 @@ app.post("/login", async (req, res) => {
       jwt.sign(
         { username: user.username, id: user._id },
         jwtSecret,
+        { expiresIn: "1h" },
         (err, token) => {
           if (err) throw err;
           res
@@ -63,7 +64,7 @@ app.post("/login", async (req, res) => {
               secure: true,
               sameSite: "Strict",
             })
-            .json("pass ok");
+            .json(user);
         }
       );
     } else {
@@ -71,6 +72,20 @@ app.post("/login", async (req, res) => {
     }
   } else {
     res.status(500).json("not found");
+  }
+});
+
+app.get("/admin", (req, res) => {
+  const { token } = req.cookies;
+  if (token) {
+    jwt.verify(token, jwtSecret, {}, (err, admin) => {
+      if (err) {
+        return res.status(403).json({ message: "Invalid token" });
+      }
+      res.json(admin);
+    });
+  } else {
+    res.json(null);
   }
 });
 
@@ -148,6 +163,61 @@ app.get("/cards/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch card" });
   }
 });
+
+app.put("/edit/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      name,
+      price,
+      type,
+      age,
+      height,
+      weight,
+      color,
+      desc,
+      category,
+      status,
+      photos,
+    } = req.body;
+
+    const card = await SheepModel.findById(id);
+    if (!card) {
+      return res.status(404).json({ message: "Card not found" });
+    }
+
+    card.set({
+      name,
+      price,
+      type,
+      age,
+      height,
+      weight,
+      color,
+      desc,
+      category,
+      status,
+      photos,
+    });
+
+    await card.save();
+    res.json("ok");
+  } catch (error) {
+    console.error("Error updating card:", error);
+    res.status(500).json({ message: "Error updating card" });
+  }
+});
+
+app.delete('/cards/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await SheepModel.findByIdAndDelete(id);
+    res.json({ message: 'Card deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete card', error });
+  }
+});
+
 
 app.listen(3001, () => {
   console.log("Server is running...");

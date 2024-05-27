@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 export default function AddPage() {
@@ -15,18 +15,51 @@ export default function AddPage() {
   const [status, setStatus] = useState("");
   const [addedPhotos, setAddedPhotos] = useState([]);
   const [linkPhotos, setLinkPhotos] = useState("");
+  const [admin, setAdmin] = useState(null);
   const [redirect, setRedirect] = useState("");
+
+  useEffect(() => {
+    if (!admin) {
+      axios
+        .get("/admin")
+        .then(({ data }) => {
+          if (data) {
+            setAdmin(data);
+          } else {
+            setRedirect("/login");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching admin data: ", error);
+          setRedirect("/login");
+        });
+    }
+  }, [admin]);
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
 
   async function addPhotoByLink(ev) {
     ev.preventDefault();
-    const { data: filename } = await axios.post("/upload-by-link", {
-      link: linkPhotos,
-    });
+    if (!linkPhotos) {
+      alert("Link cannot be empty");
+      return;
+    }
 
-    setAddedPhotos((prev) => {
-      return [...prev, filename];
-    });
-    setLinkPhotos("");
+    try {
+      const { data: filename } = await axios.post("/upload-by-link", {
+        link: linkPhotos,
+      });
+
+      setAddedPhotos((prev) => {
+        return [...prev, filename];
+      });
+      setLinkPhotos("");
+    } catch (error) {
+      console.error("Error uploading photo:", error);
+      alert("Failed to upload photo. Please try again.");
+    }
   }
 
   function uploadPhoto(ev) {
@@ -81,14 +114,18 @@ export default function AddPage() {
     return <Navigate to={redirect} />;
   }
 
+  function removePhoto(filename){
+    setAddedPhotos((prevPhotos) => prevPhotos.filter((photo) => photo !== filename));
+  }
+  
   return (
     <div>
       <header>
-        {/* <nav className="flex justify-center items-center gap-2 p-2 bg-soft-brown">
-          <img src="./src/assets/nav-logo.svg" alt="logo" />
+        <img src="./src/asses/Appbar.svg" alt="" />
+        <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
+          <img src="./src/assets/appbar-logo.svg" alt="logo" />
           <span className="md:text-2xl">BERKAH SUNGU SHEEP</span>
-        </nav> */}
-        <img src="./src/assets/Appbar.png" alt="" />
+        </nav>
       </header>
 
       <div className="mt-2 p-2">
@@ -112,7 +149,12 @@ export default function AddPage() {
             />
           </div>
           <div className="flex items-center">
-            <label htmlFor="price">Harga</label>
+            <label htmlFor="price" className="flex items-end">
+              Harga{" "}
+              <div className=" flex item-center text-gray-500 text-[12px]">
+                &nbsp;(ex: 2500000)
+              </div>
+            </label>
             <input
               type="number"
               id="price"
@@ -136,7 +178,10 @@ export default function AddPage() {
           </div>
           <div className="flex items-center">
             <label htmlFor="age" className="flex items-center">
-              Usia <div className=" flex item-center text-gray-500 text-[12px]">&nbsp;(dalam bulan)</div>
+              Usia{" "}
+              <div className=" flex item-center text-gray-500 text-[12px]">
+                &nbsp;(dalam bulan)
+              </div>
             </label>
             <input
               type="number"
@@ -146,7 +191,12 @@ export default function AddPage() {
             />
           </div>
           <div className="flex items-center">
-            <label htmlFor="height">Tinggi Badan</label>
+            <label htmlFor="height" className="flex items-center">
+              Tinggi Badan{" "}
+              <div className=" flex item-center text-gray-500 text-[12px]">
+                &nbsp;(cm)
+              </div>
+            </label>
             <input
               type="number"
               id="height"
@@ -155,7 +205,12 @@ export default function AddPage() {
             />
           </div>
           <div className="flex items-center">
-            <label htmlFor="weight">Berat Badan</label>
+            <label htmlFor="weight" className="flex items-center">
+              Berat Badan{" "}
+              <div className=" flex item-center text-gray-500 text-[12px]">
+                &nbsp;(kg)
+              </div>
+            </label>
             <input
               type="number"
               id="weight"
@@ -241,12 +296,29 @@ export default function AddPage() {
           <div className="mt-2 gap-2 grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-6">
             {addedPhotos.length > 0 &&
               addedPhotos.map((link) => (
-                <div className="flex h-30" key={link}>
+                <div className="flex relative h-30" key={link}>
                   <img
                     className="rounded-xl w-full object-cover"
                     src={"http://localhost:3001/uploads/" + link}
                     alt=""
                   />
+                  <div
+                    onClick={() => removePhoto(link)}
+                    className="cursor-pointer absolute bottom-1 right-1 bg-black bg-opacity-50 py-1 px-2 rounded-full"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="10"
+                      height="10"
+                      viewBox="0 0 9 9"
+                      fill="none"
+                    >
+                      <path
+                        d="M1.83331 9C1.55831 9 1.32298 8.90217 1.12731 8.7065C0.931646 8.51083 0.833646 8.27533 0.833313 8V1.5H0.333313V0.5H2.83331V0H5.83331V0.5H8.33331V1.5H7.83331V8C7.83331 8.275 7.73548 8.5105 7.53981 8.7065C7.34415 8.9025 7.10865 9.00033 6.83331 9H1.83331ZM6.83331 1.5H1.83331V8H6.83331V1.5ZM2.83331 7H3.83331V2.5H2.83331V7ZM4.83331 7H5.83331V2.5H4.83331V7Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </div>
                 </div>
               ))}
             <label className="label h-30 flex w-auto items-center justify-center border border-gray-600 bg-transparent rounded-xl px-2 py-8 cursor-pointer">
