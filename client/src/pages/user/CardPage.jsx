@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; 
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function CardPage() {
   const [card, setCard] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -20,6 +21,10 @@ export default function CardPage() {
       });
   }, [id]);
 
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
   if (!card) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -31,12 +36,12 @@ export default function CardPage() {
   return (
     <div className="">
       <header>
-        <Link
-          to={"/#main"}
+        <div
+          onClick={handleBackClick}
           className="flex justify-center items-center top-5  absolute aspect-square rounded-full bg-dark-brown opacity-80 text-[10px] p-[2px] ml-2 text-white shadow"
         >
           back
-        </Link>
+        </div>
         <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
           <img src="./src/assets/appbar-logo.svg" alt="logo" />
           <span className="md:text-2xl">BERKAH SUNGU SHEEP</span>

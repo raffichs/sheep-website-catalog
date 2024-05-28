@@ -5,23 +5,27 @@ import { Link, Navigate } from "react-router-dom";
 
 export default function AdminPage() {
   const [cards, setCard] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [admin, setAdmin] = useState(null);
   const [redirect, setRedirect] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     if (!admin) {
-      axios.get('/admin').then(({ data }) => {
-        if (data) {
-
-          setAdmin(data);
-        } else {
+      axios
+        .get("/admin")
+        .then(({ data }) => {
+          if (data) {
+            setAdmin(data);
+          } else {
+            setRedirect(true);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching admin data: ", error);
           setRedirect(true);
-        }
-      }).catch(error => {
-        console.error("Error fetching admin data: ", error);
-        setRedirect(true);
-      })
+        });
     }
   }, [admin]);
 
@@ -30,7 +34,7 @@ export default function AdminPage() {
       .get("/cards")
       .then(({ data }) => {
         setCard(data);
-        setLoading(false); 
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Failed to fetch cards:", error);
@@ -50,10 +54,23 @@ export default function AdminPage() {
     );
   }
 
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    setIsExpanded(false);
+  };
+
+  const filteredCards = selectedCategory
+    ? cards.filter((card) => card.category === selectedCategory)
+    : cards;
+
   return (
     <div className="root">
       <header>
-      <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
+        <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
           <img src="./src/assets/appbar-logo.svg" className="h-11" alt="logo" />
           <span className="md:text-2xl">BERKAH SUNGU SHEEP</span>
         </nav>
@@ -70,23 +87,93 @@ export default function AdminPage() {
               TAMBAH
             </Link>
           </div>
-          <div className="search bg-white flex px-4 py-2 mt-3 justify-between items-center rounded-xl">
-            <p className="search_text">Pilih Kategori</p>
-            <button>
-              <img src="./src/assets/arrow.svg" alt="arrow" />
+          <div
+            className={`search flex flex-col px-4 py-2 mt-3 justify-between items-center rounded-xl ${
+              isExpanded ? "bg-gradient" : "bg-white"
+            } transition-all duration-300`}
+          >
+            <button
+              onClick={toggleExpanded}
+              className="flex w-full justify-between items-center"
+            >
+              <p
+                className={`search_text ${isExpanded ? "text-[#f5f5f5]" : ""}`}
+              >
+                Pilih Kategori
+              </p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className={`transition-transform w-6 h-6 ${
+                  isExpanded ? "rotate-180 text-white" : "text-dark-brown"
+                } `}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
             </button>
+            <div
+              className={`overflow-hidden transition-all duration-300  ${
+                isExpanded ? "max-h-40 w-full mt-1" : "max-h-0"
+              }`}
+            >
+              <button
+                onClick={() => {
+                  handleCategoryClick("Murah");
+                }}
+                className="search_text py-1 text-[#f5f5f5] w-full text-left"
+              >
+                Murah
+              </button>
+              <hr className="w-full bg-[#F5F5F5] bg-opacity-50 mb-1 mt-0 h-px border-0" />
+              <button
+                onClick={() => {
+                  handleCategoryClick("Sedang");
+                }}
+                className="search_text py-1 text-[#f5f5f5] w-full text-left"
+              >
+                Sedang
+              </button>
+              <hr className="w-full bg-[#F5F5F5] bg-opacity-50 mb-1 mt-0 h-px border-0" />
+              <button
+                onClick={() => {
+                  handleCategoryClick("Premium");
+                }}
+                className="search_text py-1 text-[#f5f5f5] w-full text-left"
+              >
+                Premium
+              </button>
+              <hr className="w-full bg-[#F5F5F5] bg-opacity-50 mb-1 mt-0 h-px border-0" />
+              <button
+                onClick={() => {
+                  handleCategoryClick("");
+                }}
+                className="search_text py-1 text-[#f5f5f5] w-full text-left"
+              >
+                Tampilkan semua
+              </button>
+              <hr className="w-full bg-[#F5F5F5] bg-opacity-50 mb-1 mt-0 h-px border-0" />
+            </div>
           </div>
         </div>
 
         <div className="mt-2 gap-2 card-container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {cards.map((card) => (
+          {filteredCards.map((card) => (
             <Link
               to={"/edit/" + card._id}
               key={card._id}
               className="block card bg-slate-100 rounded-md shadow"
             >
               <img
-                className="rounded-t-md object-cover w-full h-40"
+                className={`rounded-t-md object-cover w-full h-40 ${
+                  card.status === "sold" ? "grayscale" : ""
+                }`}
                 src={"http://localhost:3001/uploads/" + card.photos[0]}
                 alt={card.name}
               />

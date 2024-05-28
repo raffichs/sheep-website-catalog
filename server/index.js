@@ -146,7 +146,10 @@ app.post("/cards", async (req, res) => {
 app.get("/cards", async (req, res) => {
   try {
     const dataCards = await SheepModel.find().sort({ createdAt: -1 });
-    res.json(dataCards);
+    const unsoldCards = dataCards.filter(card => card.status !== "sold");
+    const soldCards = dataCards.filter(card => card.status === "sold");
+    const sortedCards = [...unsoldCards, ...soldCards]
+    res.json(sortedCards);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch cards" });
   }

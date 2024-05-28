@@ -5,6 +5,8 @@ import { NumericFormat } from "react-number-format";
 
 export default function IndexPage() {
   const [cards, setCard] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     axios
@@ -24,6 +26,19 @@ export default function IndexPage() {
       </div>
     );
   }
+
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    setIsExpanded(false);
+  };
+
+  const filteredCards = selectedCategory
+    ? cards.filter((card) => card.category === selectedCategory)
+    : cards;
 
   return (
     <div className="">
@@ -65,52 +80,167 @@ export default function IndexPage() {
       <main id="main" className="catalog mt-10 p-2">
         <div>
           <h2>Ternak Kami</h2>
-          <div className="search bg-white flex px-4 py-2 mt-3 justify-between items-center rounded-xl">
-            <p className="search_text">Pilih Kategori</p>
-            <button>
-              <img src="./src/assets/arrow.svg" alt="arrow" />
+          <div
+            className={`search flex flex-col px-4 py-2 mt-3 justify-between items-center rounded-xl ${
+              isExpanded ? "bg-gradient" : "bg-white"
+            } transition-all duration-300`}
+          >
+            <button
+              onClick={toggleExpanded}
+              className="flex w-full justify-between items-center"
+            >
+              <p
+                className={`search_text ${isExpanded ? "text-[#f5f5f5]" : ""}`}
+              >
+                Pilih Kategori
+              </p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className={`transition-transform w-6 h-6 ${
+                  isExpanded ? "rotate-180 text-white" : "text-dark-brown"
+                } `}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
             </button>
+            <div
+              className={`overflow-hidden transition-all duration-300  ${
+                isExpanded ? "max-h-40 w-full mt-1" : "max-h-0"
+              }`}
+            >
+              <button
+                onClick={() => {
+                  handleCategoryClick("Murah");
+                }}
+                className="search_text py-1 text-[#f5f5f5] w-full text-left"
+              >
+                Murah
+              </button>
+              <hr className="w-full bg-[#F5F5F5] bg-opacity-50 mb-1 mt-0 h-px border-0" />
+              <button
+                onClick={() => {
+                  handleCategoryClick("Sedang");
+                }}
+                className="search_text py-1 text-[#f5f5f5] w-full text-left"
+              >
+                Sedang
+              </button>
+              <hr className="w-full bg-[#F5F5F5] bg-opacity-50 mb-1 mt-0 h-px border-0" />
+              <button
+                onClick={() => {
+                  handleCategoryClick("Premium");
+                }}
+                className="search_text py-1 text-[#f5f5f5] w-full text-left"
+              >
+                Premium
+              </button>
+              <hr className="w-full bg-[#F5F5F5] bg-opacity-50 mb-1 mt-0 h-px border-0" />
+              <button
+                onClick={() => {
+                  handleCategoryClick("");
+                }}
+                className="search_text py-1 text-[#f5f5f5] w-full text-left"
+              >
+                Tampilkan semua
+              </button>
+              <hr className="w-full bg-[#F5F5F5] bg-opacity-50 mb-1 mt-0 h-px border-0" />
+            </div>
           </div>
         </div>
 
         <div className="mt-2 gap-2 card-container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {cards.map((card) => (
-            <Link
-              to={"/" + card._id}
-              key={card._id}
-              className="block card bg-slate-100 rounded-md shadow"
-            >
-              <img
-                className="rounded-t-md object-cover w-full h-40"
-                src={"http://localhost:3001/uploads/" + card.photos[0]}
-                alt={card.name}
-              />
-              <div className="px-2 pb-2">
-                <div className="h1-card mt-1">{card.name}</div>
-                <div className="flex items-center">
-                  <div className="desc-card">{card.weight} kg</div>
-                  <div className="desc-card"> &nbsp;|&nbsp; </div>
-                  <div className="desc-card">{card.age} bulan</div>
-                </div>
-
-                <NumericFormat
-                  value={card.price}
-                  displayType={"text"}
-                  thousandSeparator="."
-                  decimalSeparator=","
-                  prefix="Rp "
-                  suffix=",-"
-                  renderText={(formattedValue) => (
-                    <span className="price-card">{formattedValue}</span>
-                  )}
+          {filteredCards.map((card) =>
+            card.status === "sold" ? (
+              <div
+                key={card._id}
+                className="block card bg-slate-100 rounded-md shadow"
+              >
+                <img
+                  className="rounded-t-md object-cover w-full h-40 grayscale blur-[1.5px]"
+                  src={"http://localhost:3001/uploads/" + card.photos[0]}
+                  alt={card.name}
                 />
+                <div className="px-2 pb-2">
+                  <div className="h1-card mt-1">{card.name}</div>
+                  <div className="flex items-center">
+                    <div className="desc-card">{card.weight} kg</div>
+                    <div className="desc-card"> &nbsp;|&nbsp; </div>
+                    <div className="desc-card">{card.age} bulan</div>
+                  </div>
 
-                <button className="edit-card bg-gradient w-full p-2 mt-2 rounded-sm">
-                  BELI SEKARANG
-                </button>
+                  <NumericFormat
+                    value={card.price}
+                    displayType={"text"}
+                    thousandSeparator="."
+                    decimalSeparator=","
+                    prefix="Rp "
+                    suffix=",-"
+                    renderText={(formattedValue) => (
+                      <span className="price-card">{formattedValue}</span>
+                    )}
+                  />
+
+                  <button
+                    className={`edit-card w-full p-2 mt-2 rounded-sm ${
+                      card.status === "sold" ? "bg-[#606060]" : "bg-gradient"
+                    }`}
+                  >
+                    {card.status === "sold" ? "SOLD OUT" : "BELI SEKARANG"}
+                  </button>
+                </div>
               </div>
-            </Link>
-          ))}
+            ) : (
+              <Link
+                to={"/" + card._id}
+                key={card._id}
+                className="block card bg-slate-100 rounded-md shadow"
+              >
+                <img
+                  className={`rounded-t-md object-cover w-full h-40 ${
+                    card.status === "sold" ? "grayscale" : ""
+                  }`}
+                  src={"http://localhost:3001/uploads/" + card.photos[0]}
+                  alt={card.name}
+                />
+                <div className="px-2 pb-2">
+                  <div className="h1-card mt-1">{card.name}</div>
+                  <div className="flex items-center">
+                    <div className="desc-card">{card.weight} kg</div>
+                    <div className="desc-card"> &nbsp;|&nbsp; </div>
+                    <div className="desc-card">{card.age} bulan</div>
+                  </div>
+
+                  <NumericFormat
+                    value={card.price}
+                    displayType={"text"}
+                    thousandSeparator="."
+                    decimalSeparator=","
+                    prefix="Rp "
+                    suffix=",-"
+                    renderText={(formattedValue) => (
+                      <span className="price-card">{formattedValue}</span>
+                    )}
+                  />
+
+                  <button
+                    className={`edit-card w-full p-2 mt-2 rounded-sm ${
+                      card.status === "sold" ? "bg-[#606060]" : "bg-gradient"
+                    }`}
+                  >
+                    {card.status === "sold" ? "SOLD OUT" : "BELI SEKARANG"}
+                  </button>
+                </div>
+              </Link>
+            )
+          )}
         </div>
       </main>
 

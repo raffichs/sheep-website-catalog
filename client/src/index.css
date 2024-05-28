@@ -61,6 +61,14 @@
     background: var(--gradient-color);
   }
 
+  .bg-gradient2 {
+    background: linear-gradient(
+      248deg,
+      rgba(136, 130, 85, 0.7) 4.93%,
+      rgba(89, 81, 16, 0.7) 94.89%
+    );
+  }
+
   .cta {
     color: #fff;
     font-family: "Segoe UI";
@@ -81,10 +89,11 @@
   }
 
   .search {
+    backdrop-filter: blur(40px);
     box-shadow: 0px 4px 8px 0px rgba(89, 81, 16, 0.3);
 
     .search_text {
-      color: var(--Primary, rgba(89, 81, 16, 0.6));
+      /* color: var(--Primary, rgba(89, 81, 16, 0.6)); */
 
       font-family: "Segoe UI";
       font-size: 12px;
@@ -252,7 +261,7 @@
     width: 60px;
     height: 60px;
     animation: spin 2s linear infinite;
-    margin: 0 auto; 
+    margin: 0 auto;
   }
 
   @keyframes spin {
@@ -263,6 +272,18 @@
       transform: rotate(360deg);
     }
   }
+
+  .grayscalee {
+    filter: grayscale(0);
+  }
+
+  .transition-transform {
+    transition: transform 0.3s ease;
+  }
+  
+  .rotate-180 {
+    transform: rotate(180deg);
+  }  
 }
 
 input,

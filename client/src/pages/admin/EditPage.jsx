@@ -146,11 +146,14 @@ export default function EditPage() {
   }
 
   const deleteCard = async () => {
-    try {
-      await axios.delete("/delete/" + id);
-      setRedirect("/admin");
-    } catch (error) {
-      console.error("Error deleting card:", error);
+    const confirm = window.confirm("Apakah anda yakin ingin menghapus domba ini?")
+    if (confirm) {
+      try {
+        await axios.delete("/delete/" + id);
+        setRedirect("/admin");
+      } catch (error) {
+        console.error("Error deleting card:", error);
+      }
     }
   };
 
@@ -159,9 +162,12 @@ export default function EditPage() {
   }
 
   function removePhoto(filename) {
-    setAddedPhotos((prevPhotos) =>
-      prevPhotos.filter((photo) => photo !== filename)
-    );
+    const confirm = window.confirm("Hapus foto?")
+    if (confirm) {
+      setAddedPhotos((prevPhotos) =>
+        prevPhotos.filter((photo) => photo !== filename)
+      );
+    }
   }
 
   function starPhoto(filename) {
