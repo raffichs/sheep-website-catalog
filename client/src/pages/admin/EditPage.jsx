@@ -146,7 +146,9 @@ export default function EditPage() {
   }
 
   const deleteCard = async () => {
-    const confirm = window.confirm("Apakah anda yakin ingin menghapus domba ini?")
+    const confirm = window.confirm(
+      "Apakah anda yakin ingin menghapus domba ini?"
+    );
     if (confirm) {
       try {
         await axios.delete("/delete/" + id);
@@ -162,7 +164,7 @@ export default function EditPage() {
   }
 
   function removePhoto(filename) {
-    const confirm = window.confirm("Hapus foto?")
+    const confirm = window.confirm("Hapus foto?");
     if (confirm) {
       setAddedPhotos((prevPhotos) =>
         prevPhotos.filter((photo) => photo !== filename)
@@ -183,7 +185,7 @@ export default function EditPage() {
         <img src="./src/asses/Appbar.svg" alt="" />
         <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
           <img src="/src/assets/appbar-logo.svg" alt="logo" />
-          <span className="md:text-2xl">BERKAH SUNGU SHEEP</span>
+          <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
         </nav>
       </header>
 
@@ -444,7 +446,10 @@ export default function EditPage() {
             </label>
           </div>
           <div className="flex gap-4">
-            <div onClick={deleteCard} className="flex justify-center items-center bg-red-700 label w-12 text-white py-1 px-3 mt-10 rounded-lg text-sm">
+            <div
+              onClick={deleteCard}
+              className="flex justify-center items-center bg-red-700 label w-12 text-white py-1 px-3 mt-10 rounded-lg text-sm"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

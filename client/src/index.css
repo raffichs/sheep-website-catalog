@@ -232,7 +232,7 @@
     line-height: normal;
   }
 
-  .contacts div {
+  .contacts div, .socmed-link {
     color: #f5f3a6;
     font-family: "Segoe UI";
     font-size: 15px;
@@ -280,10 +280,31 @@
   .transition-transform {
     transition: transform 0.3s ease;
   }
-  
+
   .rotate-180 {
     transform: rotate(180deg);
-  }  
+  }
+
+  .label-login {
+    color: var(--Subtitle, rgba(0, 0, 0, 0.6));
+
+    /* Text Mobile */
+    font-family: "Segoe UI";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  .button-login {
+    color: #fff;
+    text-align: center;
+    font-family: "Segoe UI";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+  }
 }
 
 input,

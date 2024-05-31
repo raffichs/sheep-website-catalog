@@ -72,7 +72,7 @@ export default function AdminPage() {
       <header>
         <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
           <img src="./src/assets/appbar-logo.svg" className="h-11" alt="logo" />
-          <span className="md:text-2xl">BERKAH SUNGU SHEEP</span>
+          <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
         </nav>
       </header>
 
@@ -231,7 +231,7 @@ export default function AdminPage() {
         </Link>
         <nav className="flex justify-center items-center gap-2 px-2 bg-dark-green">
           <img src="./src/assets/appbar-logo.svg" className="h-11" alt="logo" />
-          <span className="md:text-2xl">BERKAH SUNGU SHEEP</span>
+          <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
         </nav>
         {/* <div className=" flex flex-col items-center mt-4">
           <div className="contacts flex flex-col gap-1 items-start">
@@ -268,7 +268,7 @@ export default function AdminPage() {
               </clipPath>
             </defs>
           </svg>
-          BERKAH SUNGU SHEEP
+          PETERNAK NING SALATIGA
         </div>
       </footer>
     </div>

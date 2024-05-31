@@ -7,19 +7,41 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function CardPage() {
   const [card, setCard] = useState(null);
+  const [message, setMessage] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour >= 0 && hour < 11) {
+      return "pagi";
+    } else if (hour >= 11 && hour < 15) {
+      return "siang";
+    } else if (hour >= 15 && hour < 18) {
+      return "sore";
+    } else {
+      return "malam";
+    }
+  };
 
   useEffect(() => {
     axios
       .get("/cards/" + id)
       .then(({ data }) => {
         setCard(data);
+        const greeting = getGreeting();
+        setMessage(
+          encodeURI(
+            `Halo, selamat ${greeting}! saya tertarik dengan ${card.name}. Bisa minta info lebih lanjut?`
+          )
+        );
       })
       .catch((error) => {
         console.error("Error fetching card data:", error);
       });
-  }, [id]);
+  }, [id, card]);
+
+  const whatsappUrl = `https://wa.me/6282324019042?text=${message}`;
 
   const handleBackClick = () => {
     navigate(-1);
@@ -38,13 +60,26 @@ export default function CardPage() {
       <header>
         <div
           onClick={handleBackClick}
-          className="flex justify-center items-center top-5  absolute aspect-square rounded-full bg-dark-brown opacity-80 text-[10px] p-[2px] ml-2 text-white shadow"
+          className="flex justify-center items-center top-[18px] absolute aspect-square rounded-full p-[2px] ml-2 "
         >
-          back
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1"
+            stroke="#F5F3A6"
+            className="size-7"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
         </div>
         <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
           <img src="./src/assets/appbar-logo.svg" alt="logo" />
-          <span className="md:text-2xl">BERKAH SUNGU SHEEP</span>
+          <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
         </nav>
       </header>
 
@@ -110,9 +145,13 @@ export default function CardPage() {
             Hubungi Kami melalui Whatsapp Untuk info lebih lanjut terkait
             kambing ini
           </div>
-          <button className="bg-gradient detail-button col-span-1 p-1 rounded-md">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            className="flex bg-gradient justify-center items-center detail-button col-span-1 p-1 rounded-md"
+          >
             Hubungi&nbsp;Kami
-          </button>
+          </a>
         </div>
       </div>
     </div>

@@ -19,6 +19,16 @@ export default function IndexPage() {
       });
   }, []);
 
+  useEffect(() => {
+    // Store scroll position when leaving the Index page
+    const handleBeforeUnload = () => {
+      localStorage.setItem('scrollPosition', window.scrollY.toString());
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
+
   if (!cards) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -45,13 +55,13 @@ export default function IndexPage() {
       <header>
         <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
           <img src="./src/assets/appbar-logo.svg" className="h-11" alt="logo" />
-          <span className="md:text-2xl">BERKAH SUNGU SHEEP</span>
+          <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
         </nav>
       </header>
 
       <div>
         <div className="hero mt-5">
-          <h1 className="p-2 md:text-4xl">Peternakan Berkah Sungu Sheep</h1>
+          <h1 className="p-2 md:text-4xl">Peternakan Peternak Ning Salatiga</h1>
           <div className="desc flex justify-between items-center ps-2 gap-10 mt-6">
             <p className="w-auto md:text-xl">
               Welcome to our sheep farm, where we celebrate local farming
@@ -267,16 +277,94 @@ export default function IndexPage() {
             />
           </svg>
         </Link>
-        <nav className="flex justify-center items-center gap-2 px-2 bg-dark-green">
-          <img src="./src/assets/appbar-logo.svg" className="h-11" alt="logo" />
-          <span className="md:text-2xl">BERKAH SUNGU SHEEP</span>
-        </nav>
         <div className=" flex flex-col items-center mt-4">
           <div className="contacts flex flex-col gap-1 items-start">
-            <div className="insta">Hubungi kami:</div>
-            <div className="insta">peternakningsalatiga</div>
-            <div className="fb">peternakningsalatiga</div>
-            <div className="wa">Admin (+6282324019042)</div>
+            <nav className="flex justify-center items-center gap-2 bg-dark-green mb-2">
+              <img
+                src="./src/assets/appbar-logo.svg"
+                className="h-11"
+                alt="logo"
+              />
+              <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
+            </nav>
+            <div className="">Hubungi kami:</div>
+            <a
+              href="https://www.instagram.com/peternaknaningsalatiga"
+              target="_blank"
+              className="socmed-link flex gap-2 items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+              >
+                <path
+                  d="M1 8.83337C1 5.06243 1 3.17611 2.17137 2.00474C3.34274 0.833374 5.22821 0.833374 9 0.833374C12.7709 0.833374 14.6573 0.833374 15.8286 2.00474C17 3.17611 17 5.06158 17 8.83337C17 12.6043 17 14.4906 15.8286 15.662C14.6573 16.8334 12.7718 16.8334 9 16.8334C5.22905 16.8334 3.34274 16.8334 2.17137 15.662C1 14.4906 1 12.6052 1 8.83337Z"
+                  stroke="#F5F3A6"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M13.6383 4.2019H13.6299M12.7895 8.83348C12.7895 9.83851 12.3902 10.8024 11.6796 11.513C10.9689 12.2237 10.005 12.623 9 12.623C7.99497 12.623 7.0311 12.2237 6.32044 11.513C5.60977 10.8024 5.21053 9.83851 5.21053 8.83348C5.21053 7.82845 5.60977 6.86459 6.32044 6.15392C7.0311 5.44326 7.99497 5.04401 9 5.04401C10.005 5.04401 10.9689 5.44326 11.6796 6.15392C12.3902 6.86459 12.7895 7.82845 12.7895 8.83348Z"
+                  stroke="#F5F3A6"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              @peternakningsalatiga
+            </a>
+            <a
+              href="https://www.tiktok.com/@peternakningsalatiga"
+              target="_blank"
+              className="socmed-link flex gap-2 items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+              >
+                <path
+                  d="M1 9.16663C1 5.39568 1 3.50936 2.17137 2.33799C3.34274 1.16663 5.22821 1.16663 9 1.16663C12.7709 1.16663 14.6573 1.16663 15.8286 2.33799C17 3.50936 17 5.39484 17 9.16663C17 12.9376 17 14.8239 15.8286 15.9953C14.6573 17.1666 12.7718 17.1666 9 17.1666C5.22905 17.1666 3.34274 17.1666 2.17137 15.9953C1 14.8239 1 12.9384 1 9.16663Z"
+                  stroke="#F5F3A6"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M7.76717 8.33116C7.07664 8.23348 5.5019 8.39432 4.73054 9.82169C3.95917 11.2491 4.73643 12.7345 5.22233 13.2987C5.70148 13.8267 7.22485 14.8263 8.84085 13.8503C9.24169 13.6086 9.74106 13.4276 10.307 11.5371L10.2413 4.0979C10.1318 4.91727 11.0371 6.83895 13.6131 7.06632"
+                  stroke="#F5F3A6"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              @peternakningsalatiga
+            </a>
+            <a
+              href="https://wa.me/6282324019042"
+              target="_blank"
+              className="socmed-link flex gap-2 items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="17"
+                viewBox="0 0 16 17"
+                fill="none"
+              >
+                <path
+                  d="M13.6683 2.82804C12.9312 2.08718 12.0532 1.49978 11.0855 1.10009C10.1178 0.700395 9.07987 0.496416 8.03214 0.500048C3.6422 0.500048 0.0643215 4.06004 0.0643215 8.42802C0.0643215 9.82802 0.43417 11.188 1.12562 12.388L0 16.5L4.22109 15.396C5.38692 16.028 6.69747 16.364 8.03214 16.364C12.4221 16.364 16 12.804 16 8.43602C16 6.31603 15.1718 4.32404 13.6683 2.82804ZM8.03214 15.02C6.84219 15.02 5.67636 14.7 4.65526 14.1L4.41406 13.956L1.90552 14.612L2.57286 12.18L2.41205 11.932C1.75095 10.8816 1.39991 9.66741 1.39899 8.42802C1.39899 4.79603 4.37386 1.83604 8.0241 1.83604C9.79293 1.83604 11.4573 2.52404 12.7035 3.77204C13.3205 4.38321 13.8096 5.11016 14.1422 5.91077C14.4748 6.71138 14.6444 7.56971 14.6412 8.43602C14.6572 12.068 11.6824 15.02 8.03214 15.02ZM11.6663 10.092C11.4653 9.99602 10.4844 9.51602 10.3075 9.44402C10.1226 9.38002 9.99394 9.34802 9.85726 9.54002C9.72057 9.74002 9.34268 10.188 9.23012 10.316C9.11756 10.452 8.99696 10.468 8.79595 10.364C8.59495 10.268 7.95173 10.052 7.19596 9.38002C6.60099 8.85202 6.20702 8.20402 6.08641 8.00402C5.97385 7.80403 6.07033 7.70003 6.17486 7.59603C6.2633 7.50803 6.37586 7.36403 6.47234 7.25203C6.56882 7.14003 6.60903 7.05203 6.67335 6.92403C6.73767 6.78803 6.70551 6.67603 6.65727 6.58003C6.60903 6.48403 6.20702 5.50803 6.04621 5.10803C5.88541 4.72404 5.71657 4.77204 5.59596 4.76403H5.21003C5.07335 4.76403 4.86431 4.81203 4.67938 5.01203C4.5025 5.21203 3.98793 5.69203 3.98793 6.66803C3.98793 7.64403 4.7035 8.58802 4.79999 8.71602C4.89647 8.85202 6.20702 10.852 8.20098 11.708C8.67535 11.916 9.0452 12.036 9.33464 12.124C9.80902 12.276 10.2432 12.252 10.5889 12.204C10.9748 12.148 11.7708 11.724 11.9316 11.26C12.1005 10.796 12.1005 10.404 12.0442 10.316C11.9879 10.228 11.8673 10.188 11.6663 10.092Z"
+                  fill="#F5F3A6"
+                />
+              </svg>
+              Admin (+6282324019042)
+            </a>
           </div>
         </div>
         <hr className="mx-2 mb-1 mt-5 h-px my-8 border-0" />
@@ -306,7 +394,7 @@ export default function IndexPage() {
               </clipPath>
             </defs>
           </svg>
-          BERKAH SUNGU SHEEP
+          PETERNAK NING SALATIGA
         </div>
       </footer>
     </div>

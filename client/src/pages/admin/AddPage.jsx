@@ -133,7 +133,7 @@ export default function AddPage() {
         <img src="./src/asses/Appbar.svg" alt="" />
         <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
           <img src="./src/assets/appbar-logo.svg" alt="logo" />
-          <span className="md:text-2xl">BERKAH SUNGU SHEEP</span>
+          <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
         </nav>
       </header>
 

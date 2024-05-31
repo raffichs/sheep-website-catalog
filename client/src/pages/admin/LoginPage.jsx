@@ -22,27 +22,54 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="p-20">
-      <h1>Login as Admin</h1>
-      <form action="" onSubmit={LoginHandle}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(ev) => setUsername(ev.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(ev) => setPassword(ev.target.value)}
-        />
-        <button>Login as Admin</button>
-        <br />
-        <Link to={"/register"} className="underline">
-          Register here
-        </Link>
-      </form>
+    <div>
+      <header>
+        <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
+          <img src="./src/assets/appbar-logo.svg" className="h-11" alt="logo" />
+          <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
+        </nav>
+      </header>
+      <div className="px-14 py-5 my-20 mx-10 shadow-md bg-[#f5f5f5]">
+        <h1 className="text-lg">Login Admin</h1>
+        <form action="" className="mt-4 " onSubmit={LoginHandle}>
+          <label className="label-login" htmlFor="username">
+            Username
+          </label>
+          <input
+            required
+            type="text"
+            value={username}
+            onChange={(ev) => setUsername(ev.target.value)}
+          />
+          <label className="label-login" htmlFor="username">
+            Password
+          </label>
+          <input
+            required
+            type="password"
+            value={password}
+            onChange={(ev) => setPassword(ev.target.value)}
+          />
+          <button className="mt-2 bg-gradient button-login w-full p-2 rounded-md">
+            LOGIN
+          </button>
+          <br />
+          <div className="flex flex-col w-full mt-2 gap-1 text-center">
+            <Link
+              to={"/register"}
+              className="underline text-blue-600 w-full label-login"
+            >
+              Register here
+            </Link>
+            <Link
+              to={"/"}
+              className="underline text-blue-600 w-full label-login"
+            >
+              Back to home
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
