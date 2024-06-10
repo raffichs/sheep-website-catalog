@@ -189,7 +189,7 @@ export default function EditPage() {
         </nav>
       </header>
 
-      <div className="mt-2 p-2">
+      <div className="mt-2 p-2 md:max-w-4xl md:m-auto">
         <div className="flex justify-between">
           <Link
             to={"/admin"}

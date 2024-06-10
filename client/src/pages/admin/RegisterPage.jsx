@@ -30,7 +30,8 @@ export default function RegisterPage() {
           <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
         </nav>
       </header>
-      <div className="px-14 py-5 my-20 mx-10 shadow-md bg-[#f5f5f5]">
+
+      <div className="md:w-[30rem] md:mx-auto px-14 py-5 my-20 mx-10 shadow-md bg-[#f5f5f5]">
         <h1 className="text-lg">Register</h1>
         <form action="" className="mt-4" onSubmit={registerUser}>
           <label htmlFor="" className="label-login">
