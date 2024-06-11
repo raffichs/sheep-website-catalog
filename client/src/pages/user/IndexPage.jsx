@@ -181,7 +181,7 @@ export default function IndexPage() {
               >
                 <img
                   className="rounded-t-md object-cover w-full h-40 grayscale blur-[1.5px]"
-                  src={"http://localhost:3001/uploads/" + card.photos[0]}
+                  src={card.photos[0]}
                   alt={card.name}
                 />
                 <div className="px-2 pb-2">
@@ -223,7 +223,7 @@ export default function IndexPage() {
                   className={`rounded-t-md object-cover w-full h-40 ${
                     card.status === "sold" ? "grayscale" : ""
                   }`}
-                  src={"http://localhost:3001/uploads/" + card.photos[0]}
+                  src={card.photos[0]}
                   alt={card.name}
                 />
                 <div className="px-2 pb-2">

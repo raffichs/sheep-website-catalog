@@ -152,7 +152,7 @@ export default function EditPage() {
     if (confirm) {
       try {
         await axios.delete("/delete/" + id);
-        setRedirect("/admin");
+        setRedirect("/admin"); 
       } catch (error) {
         console.error("Error deleting card:", error);
       }
@@ -359,8 +359,8 @@ export default function EditPage() {
               addedPhotos.map((link) => (
                 <div className="flex relative h-30" key={link}>
                   <img
-                    className="rounded-xl w-full object-cover"
-                    src={"http://localhost:3001/uploads/" + link}
+                    className="rounded-xl w-full object-cover h-28"
+                    src={link}
                     alt=""
                   />
                   <div

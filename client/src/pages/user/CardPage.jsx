@@ -29,17 +29,22 @@ export default function CardPage() {
       .get("/cards/" + id)
       .then(({ data }) => {
         setCard(data);
-        const greeting = getGreeting();
-        setMessage(
-          encodeURI(
-            `Halo, selamat ${greeting}! saya tertarik dengan ${card.name}. Bisa minta info lebih lanjut?`
-          )
-        );
       })
       .catch((error) => {
         console.error("Error fetching card data:", error);
       });
-  }, [id, card]);
+  }, [id]);
+
+  useEffect(() => {
+    if (card) {
+      const greeting = getGreeting();
+      setMessage(
+        encodeURI(
+          `Halo, selamat ${greeting}! saya tertarik dengan ${card.name}. Bisa minta info lebih lanjut?`
+        )
+      );
+    }
+  }, [card]);
 
   const whatsappUrl = `https://wa.me/6282324019042?text=${message}`;
 
@@ -92,7 +97,7 @@ export default function CardPage() {
               {card.photos.map((photo, index) => (
                 <div key={index} className="">
                   <img
-                    src={`http://localhost:3001/uploads/${photo}`}
+                    src={photo}
                     className="w-full h-72 md:h-[20rem] object-cover bg-gray-400"
                     alt={`${card.name} ${index + 1}`}
                   />

@@ -40,6 +40,10 @@ export default function AddPage() {
     return <Navigate to={redirect} />;
   }
 
+  const isValidImageUrl = (url) => {
+    return url.match(/\.(jpeg|jpg|gif|png)$/) != null;
+  };
+
   async function addPhotoByLink(ev) {
     ev.preventDefault();
     if (!linkPhotos) {
@@ -47,14 +51,27 @@ export default function AddPage() {
       return;
     }
 
+    if (!isValidImageUrl(linkPhotos)) {
+      alert(
+        "The link must be a direct image URL (ending in .jpeg, .jpg, .gif, .png)."
+      );
+      return;
+    }
+
     try {
+      // const response = await axios.post("/upload-by-link", {
+      //   link: linkPhotos,
+      // });
       const { data: filename } = await axios.post("/upload-by-link", {
         link: linkPhotos,
       });
+      // const secure_url = response.data.secure_url;
+      console.log("url: " + filename);
 
       setAddedPhotos((prev) => {
         return [...prev, filename];
       });
+      console.log("added: " + addedPhotos);
       setLinkPhotos("");
     } catch (error) {
       console.error("Error uploading photo:", error);
@@ -115,9 +132,12 @@ export default function AddPage() {
   }
 
   function removePhoto(filename) {
-    setAddedPhotos((prevPhotos) =>
-      prevPhotos.filter((photo) => photo !== filename)
-    );
+    const confirm = window.confirm("Hapus foto?");
+    if (confirm) {
+      setAddedPhotos((prevPhotos) =>
+        prevPhotos.filter((photo) => photo !== filename)
+      );
+    }
   }
 
   function starPhoto(filename) {
@@ -307,8 +327,8 @@ export default function AddPage() {
               addedPhotos.map((link) => (
                 <div className="flex relative h-30" key={link}>
                   <img
-                    className="rounded-xl w-full object-cover"
-                    src={"http://localhost:3001/uploads/" + link}
+                    className="rounded-xl w-full object-cover h-28"
+                    src={link}
                     alt=""
                   />
                   <div
