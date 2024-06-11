@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const fs = require("fs");
 const cloudinary = require("../server/cloudinaryConfig.js");
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+// const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const SheepModel = require("./models/Sheep");
 
 const storage = new CloudinaryStorage({
