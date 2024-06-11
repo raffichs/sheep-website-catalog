@@ -8,7 +8,20 @@ const imageDownloader = require("image-downloader");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const fs = require("fs");
+const cloudinary = require("../server/cloudinaryConfig.js");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const SheepModel = require("./models/Sheep");
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "uploads",
+    format: async (req, file) => "png", // supports promises as well
+    public_id: (req, file) => file.filename,
+  },
+});
+
+const upload = multer({ storage: storage });
 
 require("dotenv").config();
 const app = express();
@@ -18,7 +31,7 @@ const jwtSecret = "ahdajshddasd";
 
 app.use(express.json());
 app.use(cookieParser());
-app.use("/uploads", express.static(__dirname + "/uploads"));
+// app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(
   cors({
     credentials: true,
@@ -91,27 +104,46 @@ app.get("/admin", (req, res) => {
 
 app.post("/upload-by-link", async (req, res) => {
   const { link } = req.body;
-  const newName = "sheep" + Date.now() + ".jpg";
-  await imageDownloader.image({
-    url: link,
-    dest: __dirname + "/uploads/" + newName,
-  });
-  res.json(newName);
+  try {
+    const result = await cloudinary.uploader.upload(link, {
+      public_id: "sheep" + Date.now(),
+      folder: "uploads",
+    });
+    res.json(result.secure_url);
+  } catch (error) {
+    console.error("Full error details:", error);
+    res.status(500).json({ error: "Failed to upload image" });
+  }
 });
 
-const photosMiddleware = multer({ dest: "uploads/" });
-app.post("/upload", photosMiddleware.array("photos", 100), (req, res) => {
-  const uploadedFiles = [];
-  for (let i = 0; i < req.files.length; i++) {
-    const { path, originalname } = req.files[i];
-    const parts = originalname.split(".");
-    const ext = parts[parts.length - 1];
-    const newPath = path + "." + ext;
-    fs.renameSync(path, newPath);
-    uploadedFiles.push(newPath.replace("uploads\\", ""));
-  }
+// app.post("/upload-by-link", async (req, res) => {
+//   const { link } = req.body;
+//   const newName = "sheep" + Date.now() + ".jpg";
+//   await imageDownloader.image({
+//     url: link,
+//     dest: __dirname + "/uploads/" + newName,
+//   });
+//   res.json(newName);
+// });
+
+app.post("/upload", upload.array("photos", 10), (req, res) => {
+  const uploadedFiles = req.files.map((file) => file.path);
   res.json(uploadedFiles);
 });
+
+// const photosMiddleware = multer({ dest: "uploads/" });
+// app.post("/upload", photosMiddleware.array("photos", 100), (req, res) => {
+//   const uploadedFiles = [];
+//   for (let i = 0; i < req.files.length; i++) {
+//     const { path, originalname } = req.files[i];
+//     const parts = originalname.split(".");
+//     const ext = parts[parts.length - 1];
+//     const newPath = path + "." + ext;
+//     fs.renameSync(path, newPath);
+//     uploadedFiles.push(newPath.replace("uploads\\", ""));
+//   }
+//   res.json(uploadedFiles);
+// });
 
 app.post("/cards", async (req, res) => {
   const {
@@ -146,9 +178,9 @@ app.post("/cards", async (req, res) => {
 app.get("/cards", async (req, res) => {
   try {
     const dataCards = await SheepModel.find().sort({ createdAt: -1 });
-    const unsoldCards = dataCards.filter(card => card.status !== "sold");
-    const soldCards = dataCards.filter(card => card.status === "sold");
-    const sortedCards = [...unsoldCards, ...soldCards]
+    const unsoldCards = dataCards.filter((card) => card.status !== "sold");
+    const soldCards = dataCards.filter((card) => card.status === "sold");
+    const sortedCards = [...unsoldCards, ...soldCards];
     res.json(sortedCards);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch cards" });
@@ -211,16 +243,16 @@ app.put("/edit/:id", async (req, res) => {
   }
 });
 
-app.delete('/cards/:id', async (req, res) => {
+app.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
   try {
     await SheepModel.findByIdAndDelete(id);
-    res.json({ message: 'Card deleted successfully' });
+    res.json({ message: "Card deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to delete card', error });
+    console.error("Full error details:", error);
+    res.status(500).json({ message: "Failed to delete card", error });
   }
 });
-
 
 app.listen(3001, () => {
   console.log("Server is running...");
