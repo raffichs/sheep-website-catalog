@@ -54,7 +54,7 @@ export default function IndexPage() {
     <div className="">
       <header>
         <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
-          <img src="/appbar-logo.svg" className="h-11" alt="logo" />
+          <img src="./src/assets/appbar-logo.svg" className="h-11" alt="logo" />
           <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
         </nav>
       </header>
@@ -72,7 +72,7 @@ export default function IndexPage() {
               gap between producer and consumer.
             </p>
             <img
-              src="/hero-logo.svg"
+              src="./src/assets/hero-logo.svg"
               className="md:text-lg"
               alt="hero"
             />
@@ -297,7 +297,7 @@ export default function IndexPage() {
             <div className="contacts flex flex-col md:flex-row md:gap-20 md:items-center gap-1 items-start">
               <nav className="flex justify-center items-center gap-2 bg-dark-green mb-2">
                 <img
-                  src="/public/appbar-logo.svg"
+                  src="./src/assets/appbar-logo.svg"
                   className="h-11"
                   alt="logo"
                 />
