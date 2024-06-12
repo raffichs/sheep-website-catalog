@@ -75,7 +75,7 @@ app.post("/login", async (req, res) => {
             .cookie("token", token, {
               httpOnly: true,
               secure: true,
-              sameSite: "Strict",
+              sameSite: "None",
             })
             .json(user);
         }
@@ -95,6 +95,7 @@ app.get("/admin", (req, res) => {
       if (err) {
         return res.status(403).json({ message: "Invalid token" });
       }
+      console.log(admin);
       res.json(admin);
     });
   } else {
