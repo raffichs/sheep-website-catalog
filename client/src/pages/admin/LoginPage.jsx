@@ -25,7 +25,7 @@ export default function LoginPage() {
     <div>
       <header>
         <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
-          <img src="./src/assets/appbar-logo.svg" className="h-11" alt="logo" />
+          <img src={"/images/appbar-logo.svg"} className="h-11" alt="logo" />
           <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
         </nav>
       </header>

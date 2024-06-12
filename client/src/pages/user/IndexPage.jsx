@@ -72,7 +72,7 @@ export default function IndexPage() {
               gap between producer and consumer.
             </p>
             <img
-              src="./src/assets/hero-logo.svg"
+              src={"/images/hero-logo.svg"}
               className="md:text-lg"
               alt="hero"
             />

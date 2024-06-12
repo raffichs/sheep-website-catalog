@@ -84,7 +84,7 @@ export default function CardPage() {
             </svg>
           </div>
           <nav className="flex justify-center items-center gap-2 p-2">
-            <img src="./src/assets/appbar-logo.svg" alt="logo" />
+            <img src={"/images/appbar-logo.svg"} alt="logo" />
             <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
           </nav>
         </div>
@@ -196,7 +196,7 @@ export default function CardPage() {
             <div className="contacts flex flex-col md:flex-row md:gap-20 md:items-center gap-1 items-start">
               <nav className="flex justify-center items-center gap-2 bg-dark-green mb-2">
                 <img
-                  src="./src/assets/appbar-logo.svg"
+                  src={"/images/appbar-logo.svg"}
                   className="h-11"
                   alt="logo"
                 />
