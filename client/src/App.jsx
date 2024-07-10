@@ -9,7 +9,7 @@ import AddPage from './pages/admin/AddPage'
 import CardPage from './pages/user/CardPage'
 import EditPage from './pages/admin/EditPage'
 
-axios.defaults.baseURL = "https://sheep-website-catalog-api.vercel.app/"
+axios.defaults.baseURL = "https://peternakningsalatiga-api.vercel.app/"
 axios.defaults.withCredentials = true
 
 function App() {
