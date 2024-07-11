@@ -5,12 +5,12 @@
   ],
   "routes": [
     {
-      "source": "/server/(.*)",
-      "destination": "/server/index.js"
+      "src": "/server/(.*)",
+      "dest": "/server/index.js"
     },
     {
-      "source": "/(.*)",
-      "destination": "/client/index.html"
+      "src": "/(.*)",
+      "dest": "/client/index.html"
     }
   ],
   "env": {
