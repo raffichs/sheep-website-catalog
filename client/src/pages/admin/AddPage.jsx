@@ -190,6 +190,7 @@ export default function AddPage() {
           <div className="flex items-center">
             <label htmlFor="name">Nama</label>
             <input
+              required
               type="text"
               id="name"
               value={name}
@@ -204,6 +205,7 @@ export default function AddPage() {
               </div>
             </label>
             <input
+              required
               type="number"
               id="price"
               value={price}
@@ -213,6 +215,7 @@ export default function AddPage() {
           <div className="flex items-center">
             <label htmlFor="type">Jenis Domba</label>
             <select
+              required
               name=""
               id="type"
               className="input"
@@ -232,6 +235,7 @@ export default function AddPage() {
               </div>
             </label>
             <input
+              required
               type="number"
               id="age"
               value={age}
@@ -246,6 +250,7 @@ export default function AddPage() {
               </div>
             </label>
             <input
+              required
               type="number"
               id="height"
               value={height}
@@ -260,6 +265,7 @@ export default function AddPage() {
               </div>
             </label>
             <input
+              required
               type="number"
               id="weight"
               value={weight}
@@ -269,6 +275,7 @@ export default function AddPage() {
           <div className="flex items-center">
             <label htmlFor="color">Warna</label>
             <input
+              required
               type="text"
               id="color"
               value={color}
@@ -278,6 +285,7 @@ export default function AddPage() {
           <div className="flex items-center">
             <label htmlFor="desc">Deskripsi</label>
             <textarea
+              required
               name=""
               id="desc"
               value={desc}
@@ -287,6 +295,7 @@ export default function AddPage() {
           <div className="flex items-center">
             <label htmlFor="category">Kategori Domba</label>
             <select
+              required
               name=""
               id="category"
               className="input"
@@ -304,6 +313,7 @@ export default function AddPage() {
             <div className="grid grid-cols-2">
               <div className="flex gap-2">
                 <input
+                  required
                   className="w-4"
                   type="radio"
                   value="active"
