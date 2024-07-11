@@ -97,9 +97,11 @@ export default function AdminPage() {
               className="flex w-full justify-between items-center"
             >
               <p
-                className={`search_text ${isExpanded ? "text-[#f5f5f5]" : ""} md:text-xs`}
+                className={`search_text ${
+                  isExpanded ? "text-[#f5f5f5]" : ""
+                } md:text-xs`}
               >
-                Pilih Kategori
+                {selectedCategory ? selectedCategory : "Pilih Kategori"}
               </p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -164,45 +166,51 @@ export default function AdminPage() {
         </div>
 
         <div className="mt-2 gap-2 card-container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {filteredCards.map((card) => (
-            <Link
-              to={"/edit/" + card._id}
-              key={card._id}
-              className="block card bg-slate-100 rounded-md shadow"
-            >
-              <img
-                className={`rounded-t-md object-cover w-full h-40 ${
-                  card.status === "sold" ? "grayscale" : ""
-                }`}
-                src={card.photos[0]}
-                alt={card.name}
-              />
-              <div className="px-2 pb-2">
-                <div className="h1-card mt-1">{card.name}</div>
-                <div className="flex items-center">
-                  <div className="desc-card">{card.weight} kg</div>
-                  <div className="desc-card"> &nbsp;|&nbsp; </div>
-                  <div className="desc-card">{card.age} bulan</div>
-                </div>
-
-                <NumericFormat
-                  value={card.price}
-                  displayType={"text"}
-                  thousandSeparator="."
-                  decimalSeparator=","
-                  prefix="Rp "
-                  suffix=",-"
-                  renderText={(formattedValue) => (
-                    <span className="price-card">{formattedValue}</span>
-                  )}
+          {filteredCards.length > 0 ? (
+            filteredCards.map((card) => (
+              <Link
+                to={"/edit/" + card._id}
+                key={card._id}
+                className="block card bg-slate-100 rounded-md shadow"
+              >
+                <img
+                  className={`rounded-t-md object-cover w-full h-40 ${
+                    card.status === "sold" ? "grayscale" : ""
+                  }`}
+                  src={card.photos[0]}
+                  alt={card.name}
                 />
+                <div className="px-2 pb-2">
+                  <div className="h1-card mt-1">{card.name}</div>
+                  <div className="flex items-center">
+                    <div className="desc-card">{card.weight} kg</div>
+                    <div className="desc-card"> &nbsp;|&nbsp; </div>
+                    <div className="desc-card">{card.age} bulan</div>
+                  </div>
 
-                <button className="edit-card bg-gradient w-full p-2 mt-2 rounded-sm">
-                  EDIT
-                </button>
-              </div>
-            </Link>
-          ))}
+                  <NumericFormat
+                    value={card.price}
+                    displayType={"text"}
+                    thousandSeparator="."
+                    decimalSeparator=","
+                    prefix="Rp "
+                    suffix=",-"
+                    renderText={(formattedValue) => (
+                      <span className="price-card">{formattedValue}</span>
+                    )}
+                  />
+
+                  <button className="edit-card bg-gradient w-full p-2 mt-2 rounded-sm">
+                    EDIT
+                  </button>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <div className="h1-card p-14 col-span-full card bg-slate-100 rounded-md shadow text-center">
+              Belum ada produk untuk kategori ini
+            </div>
+          )}
         </div>
       </main>
 

@@ -161,7 +161,7 @@
 
     /* H2 Mobile */
     font-family: "Segoe UI";
-    font-size: 16px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -183,7 +183,7 @@
 
     /* Text Mobile */
     font-family: "Segoe UI";
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -195,7 +195,7 @@
 
     /* Text Mobile */
     font-family: "Segoe UI";
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -207,18 +207,18 @@
 
     /* Text Mobile */
     font-family: "Segoe UI";
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
   }
 
   .detail-desc {
-    color: var(--Subtitle, rgba(0, 0, 0, 0.6));
+    color: var(--Subtitle, rgba(0, 0, 0, 1));
     font-family: "Segoe UI";
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
-    font-weight: 350;
+    font-weight: 400;
     line-height: normal;
   }
 
@@ -226,7 +226,7 @@
     color: #fff;
     text-align: center;
     font-family: "Segoe UI";
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -235,7 +235,7 @@
   .contacts div, .socmed-link {
     color: #f5f3a6;
     font-family: "Segoe UI";
-    font-size: 15px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;

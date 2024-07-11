@@ -17,6 +17,7 @@ export default function EditPage() {
   const [linkPhotos, setLinkPhotos] = useState("");
   const [admin, setAdmin] = useState(null);
   const [redirect, setRedirect] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { id } = useParams();
 
@@ -79,6 +80,8 @@ export default function EditPage() {
     }
 
     try {
+      setIsLoading(true);
+
       const { data: filename } = await axios.post("/upload-by-link", {
         link: linkPhotos,
       });
@@ -90,10 +93,14 @@ export default function EditPage() {
     } catch (error) {
       console.error("Error uploading photo:", error);
       alert("Failed to upload photo. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
   function uploadPhoto(ev) {
+    setIsLoading(true);
+
     const files = ev.target.files;
     const data = new FormData();
     for (let i = 0; i < files.length; i++) {
@@ -108,6 +115,13 @@ export default function EditPage() {
         setAddedPhotos((prev) => {
           return [...prev, ...filenames];
         });
+      })
+      .catch((error) => {
+        console.error("Error uploading photos:", error);
+        alert("Failed to upload photos. Please try again.");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -152,7 +166,7 @@ export default function EditPage() {
     if (confirm) {
       try {
         await axios.delete("/delete/" + id);
-        setRedirect("/admin"); 
+        setRedirect("/admin");
       } catch (error) {
         console.error("Error deleting card:", error);
       }
@@ -169,6 +183,15 @@ export default function EditPage() {
       setAddedPhotos((prevPhotos) =>
         prevPhotos.filter((photo) => photo !== filename)
       );
+
+      axios
+        .delete("/remove", { data: { filename } })
+        .then((response) => {
+          console.log("Photo deleted successfully: ", response.data);
+        })
+        .catch((error) => {
+          console.error("Error deleting photo: ", error);
+        });
     }
   }
 
@@ -417,6 +440,13 @@ export default function EditPage() {
                   </div>
                 </div>
               ))}
+            <div
+              className={
+                isLoading ? "flex justify-center items-center" : "hidden"
+              }
+            >
+              <div className="spinner w-10 h-10"></div>
+            </div>
             <label className="label h-30 flex w-auto items-center justify-center border border-gray-600 bg-transparent rounded-xl px-2 py-8 cursor-pointer">
               <input
                 type="file"

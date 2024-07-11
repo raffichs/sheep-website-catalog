@@ -40,7 +40,7 @@ export default function CardPage() {
       const greeting = getGreeting();
       setMessage(
         encodeURI(
-          `Halo, selamat ${greeting}! saya tertarik dengan ${card.name}. Bisa minta info lebih lanjut?`
+          `Halo, selamat ${greeting}! Saya tertarik dengan ${card.name}. Bisa minta info lebih lanjut?`
         )
       );
     }
@@ -98,7 +98,7 @@ export default function CardPage() {
                 <div key={index} className="">
                   <img
                     src={photo}
-                    className="w-full h-72 md:h-[20rem] object-cover bg-gray-400"
+                    className="w-full h-72 md:h-[20rem] object-contain bg-gradient-to-r from-gray-600 to-gray-400"
                     alt={`${card.name} ${index + 1}`}
                   />
                 </div>
@@ -156,7 +156,7 @@ export default function CardPage() {
 
       <div className="mt-3 grid grid-cols-3 gap-4 md:gap-8 px-2 md:px-4 lg:px-0 pb-5 md:mt-14 md:max-w-4xl md:m-auto">
         <div className="detail-heading col-span-2 cw-auto md:text-base">
-          Hubungi Kami melalui Whatsapp Untuk info lebih lanjut terkait kambing
+          Hubungi kami melalui whatsapp untuk info lebih lanjut terkait kambing
           ini
         </div>
         <a

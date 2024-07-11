@@ -61,9 +61,11 @@ export default function IndexPage() {
 
       <div className="md:max-w-4xl md:m-auto">
         <div className="hero mt-5">
-          <h1 className="p-2 md:text-3xl md:mt-20">Peternakan Peternak Ning Salatiga</h1>
+          <h1 className="p-2 md:text-3xl md:mt-20">
+            Peternakan Peternak Ning Salatiga
+          </h1>
           <div className="desc flex justify-between items-center ps-2 gap-10 mt-6 md:mt-0">
-            <p className="w-auto md:text-sm">
+            <p className="w-auto text-xs md:text-sm">
               Welcome to our sheep farm, where we celebrate local farming
               traditions. Enjoy a curated selection of premium products sourced
               directly from dedicated local producers. With a commitment to
@@ -73,7 +75,7 @@ export default function IndexPage() {
             </p>
             <img
               src={"/images/hero-logo.svg"}
-              className="md:text-lg"
+              className="md:text-lg lg:size-64"
               alt="hero"
             />
           </div>
@@ -108,7 +110,7 @@ export default function IndexPage() {
                   isExpanded ? "text-[#f5f5f5]" : ""
                 } md:text-xs`}
               >
-                Pilih Kategori
+                {selectedCategory ? selectedCategory : "Pilih Kategori"}
               </p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -173,98 +175,95 @@ export default function IndexPage() {
         </div>
 
         <div className="mt-2 gap-2 card-container grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {filteredCards.map((card) =>
-            card.status === "sold" ? (
-              <div
-                key={card._id}
-                className="block card bg-slate-100 rounded-md shadow"
-              >
-                <img
-                  className="rounded-t-md object-cover w-full h-40 grayscale blur-[1.5px]"
-                  src={card.photos[0]}
-                  alt={card.name}
-                />
-                <div className="px-2 pb-2">
-                  <div className="h1-card mt-1">{card.name}</div>
-                  <div className="flex items-center">
-                    <div className="desc-card">{card.weight} kg</div>
-                    <div className="desc-card"> &nbsp;|&nbsp; </div>
-                    <div className="desc-card">{card.age} bulan</div>
-                  </div>
-
-                  <NumericFormat
-                    value={card.price}
-                    displayType={"text"}
-                    thousandSeparator="."
-                    decimalSeparator=","
-                    prefix="Rp "
-                    suffix=",-"
-                    renderText={(formattedValue) => (
-                      <span className="price-card">{formattedValue}</span>
-                    )}
+          {filteredCards.length > 0 ? (
+            filteredCards.map((card) =>
+              card.status === "sold" ? (
+                <div
+                  key={card._id}
+                  className="block card bg-slate-100 rounded-md shadow"
+                >
+                  <img
+                    className="rounded-t-md object-cover w-full h-40 grayscale blur-[1.5px]"
+                    src={card.photos[0]}
+                    alt={card.name}
                   />
+                  <div className="px-2 pb-2">
+                    <div className="h1-card mt-1">{card.name}</div>
+                    <div className="flex items-center">
+                      <div className="desc-card">{card.weight} kg</div>
+                      <div className="desc-card"> &nbsp;|&nbsp; </div>
+                      <div className="desc-card">{card.age} bulan</div>
+                    </div>
 
-                  <button
-                    className={`edit-card w-full p-2 mt-2 rounded-sm ${
-                      card.status === "sold" ? "bg-[#606060]" : "bg-gradient"
-                    }`}
-                  >
-                    {card.status === "sold" ? "SOLD OUT" : "BELI SEKARANG"}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <Link
-                to={"/" + card._id}
-                key={card._id}
-                className="block card bg-slate-100 rounded-md shadow"
-              >
-                <img
-                  className={`rounded-t-md object-cover w-full h-40 ${
-                    card.status === "sold" ? "grayscale" : ""
-                  }`}
-                  src={card.photos[0]}
-                  alt={card.name}
-                />
-                <div className="px-2 pb-2">
-                  <div className="h1-card mt-1">{card.name}</div>
-                  <div className="flex items-center">
-                    <div className="desc-card">
-                      {card.weight} kg
-                    </div>
-                    <div className="desc-card">
-                      {" "}
-                      &nbsp;|&nbsp;{" "}
-                    </div>
-                    <div className="desc-card">
-                      {card.age} bulan
-                    </div>
+                    <NumericFormat
+                      value={card.price}
+                      displayType={"text"}
+                      thousandSeparator="."
+                      decimalSeparator=","
+                      prefix="Rp "
+                      suffix=",-"
+                      renderText={(formattedValue) => (
+                        <span className="price-card">{formattedValue}</span>
+                      )}
+                    />
+
+                    <button
+                      className={`edit-card w-full p-2 mt-2 rounded-sm ${
+                        card.status === "sold" ? "bg-[#606060]" : "bg-gradient"
+                      }`}
+                    >
+                      {card.status === "sold" ? "SOLD OUT" : "BELI SEKARANG"}
+                    </button>
                   </div>
-
-                  <NumericFormat
-                    value={card.price}
-                    displayType={"text"}
-                    thousandSeparator="."
-                    decimalSeparator=","
-                    prefix="Rp "
-                    suffix=",-"
-                    renderText={(formattedValue) => (
-                      <span className="price-card">
-                        {formattedValue}
-                      </span>
-                    )}
-                  />
-
-                  <button
-                    className={`edit-card w-full p-2 mt-2 rounded-sm ${
-                      card.status === "sold" ? "bg-[#606060]" : "bg-gradient"
-                    }`}
-                  >
-                    {card.status === "sold" ? "SOLD OUT" : "BELI SEKARANG"}
-                  </button>
                 </div>
-              </Link>
+              ) : (
+                <Link
+                  to={"/" + card._id}
+                  key={card._id}
+                  className="block card bg-slate-100 rounded-md shadow"
+                >
+                  <img
+                    className={`rounded-t-md object-cover w-full h-40 ${
+                      card.status === "sold" ? "grayscale" : ""
+                    }`}
+                    src={card.photos[0]}
+                    alt={card.name}
+                  />
+                  <div className="px-2 pb-2">
+                    <div className="h1-card mt-1">{card.name}</div>
+                    <div className="flex items-center">
+                      <div className="desc-card">{card.weight} kg</div>
+                      <div className="desc-card"> &nbsp;|&nbsp; </div>
+                      <div className="desc-card">{card.age} bulan</div>
+                    </div>
+
+                    <NumericFormat
+                      value={card.price}
+                      displayType={"text"}
+                      thousandSeparator="."
+                      decimalSeparator=","
+                      prefix="Rp "
+                      suffix=",-"
+                      renderText={(formattedValue) => (
+                        <span className="price-card">{formattedValue}</span>
+                      )}
+                    />
+
+                    <button
+                      className={`edit-card w-full p-2 mt-2 rounded-sm ${
+                        card.status === "sold" ? "bg-[#606060]" : "bg-gradient"
+                      }`}
+                    >
+                      {card.status === "sold" ? "SOLD OUT" : "BELI SEKARANG"}
+                    </button>
+                  </div>
+                </Link>
+              )
             )
+          ) : (
+            <div className="h1-card p-14 col-span-full card bg-slate-100 rounded-md shadow text-center">
+              Belum ada produk untuk kategori ini
+            </div>
           )}
         </div>
       </main>
@@ -304,7 +303,7 @@ export default function IndexPage() {
                 <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
               </nav>
               <div>
-                <div className="">Hubungi kami:</div>
+                <div className="md:text-sm">Hubungi kami:</div>
                 <a
                   href="https://www.instagram.com/peternaknaningsalatiga"
                   target="_blank"
