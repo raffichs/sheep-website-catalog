@@ -10,7 +10,7 @@
       }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
       "src": "/server/(.*)",
       "dest": "/server/index.js"
