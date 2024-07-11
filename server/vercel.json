@@ -1,7 +1,7 @@
 {
   "version": 2,
   "builds": [{ "src": "*.js", "use": "@vercel/node" }],
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "env": {
     "CLOUDINARY_CLOUD_NAME": "dod0twmjb",
     "CLOUDINARY_API_KEY": "582242889634526",
