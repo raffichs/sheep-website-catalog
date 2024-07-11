@@ -2,12 +2,7 @@
   "version": 2,
   "builds": [{ "src": "*.js", "use": "@vercel/node" }],
   "routes": [
-    { "src": "/(.*)", "dest": "/" },
-    { "src": "/login", "dest": "/" },
-    { "src": "/register", "dest": "/" },
-    { "src": "/admin", "dest": "/" },
-    { "src": "/add", "dest": "/" },
-    { "src": "/edit", "dest": "/" }
+    { "src": "/(.*)", "dest": "/" }
   ],
   "env": {
     "CLOUDINARY_CLOUD_NAME": "dod0twmjb",
