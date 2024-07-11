@@ -12,12 +12,12 @@
   ],
   "rewrites": [
     {
-      "src": "/server/(.*)",
-      "dest": "/server/index.js"
+      "source": "/server/(.*)",
+      "destination": "/server/index.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/client/index.html"
+      "source": "/(.*)",
+      "destination": "/client/index.html"
     }
   ],
   "env": {
