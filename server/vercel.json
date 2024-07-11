@@ -1,17 +1,10 @@
 {
   "version": 2,
   "builds": [{ "src": "*.js", "use": "@vercel/node" }],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/"
-    }
-  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "env": {
     "CLOUDINARY_CLOUD_NAME": "dod0twmjb",
     "CLOUDINARY_API_KEY": "582242889634526",
     "CLOUDINARY_API_SECRET": "sVc7O-JJGUeqP-GDaLVOi6ThvVg"
-  },
-
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  }
 }
