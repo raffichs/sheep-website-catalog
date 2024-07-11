@@ -17,7 +17,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "uploads",
-    format: async (req, file) => "png", // supports promises as well
+    format: async (req, file) => "png",
     public_id: (req, file) => file.filename,
   },
 });
@@ -32,7 +32,6 @@ const jwtSecret = "ahdajshddasd";
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(
   cors({
     origin: "https://peternakningsalatiga.vercel.app",
