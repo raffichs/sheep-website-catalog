@@ -1,25 +1,27 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  // const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
+
   async function LoginHandle(ev) {
     ev.preventDefault();
     try {
       await axios.post("/login", { username, password });
       alert("Login succesful");
-      setRedirect(true);
+      navigate("/admin");
     } catch (error) {
       alert("Login failed");
     }
   }
 
-  if (redirect) {
-    return <Navigate to={"/admin"} />;
-  }
+  // if (redirect) {
+  //   return <Navigate to={"/admin"} />;
+  // }
 
   return (
     <div>
