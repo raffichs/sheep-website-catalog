@@ -2,7 +2,7 @@ import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import IndexPage from './pages/user/IndexPage'
 import LoginPage from './pages/admin/LoginPage'
-import RegisterPage from './pages/admin/RegisterPage'
+// import RegisterPage from './pages/admin/RegisterPage'
 import axios from 'axios'
 import AdminPage from './pages/admin/AdminPage'
 import AddPage from './pages/admin/AddPage'
@@ -17,7 +17,7 @@ function App() {
     <Routes>
       <Route index element={<IndexPage />}/>
       <Route path='/login' element={<LoginPage />}/>
-      <Route path='/register' element={<RegisterPage />}/>
+      {/* <Route path='/register' element={<RegisterPage />}/> */}
       <Route path='/admin' element={<AdminPage />}/>
       <Route path='/add' element={<AddPage />}/>
       <Route path='/:id' element={<CardPage />} />

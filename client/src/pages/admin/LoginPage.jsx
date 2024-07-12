@@ -5,23 +5,18 @@ import { Link, useNavigate } from "react-router-dom";
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
 
   async function LoginHandle(ev) {
     ev.preventDefault();
     try {
       await axios.post("/login", { username, password });
-      alert("Login succesful");
+      alert("Login successful");
       navigate("/admin");
     } catch (error) {
       alert("Login failed");
     }
   }
-
-  // if (redirect) {
-  //   return <Navigate to={"/admin"} />;
-  // }
 
   return (
     <div>
@@ -58,12 +53,12 @@ export default function LoginPage() {
           </button>
           <br />
           <div className="flex flex-col w-full mt-2 gap-1 text-center">
-            <Link
+            {/* <Link
               to={"/register"}
               className="underline text-blue-600 w-full label-login"
             >
               Register here
-            </Link>
+            </Link> */}
             <Link
               to={"/"}
               className="underline text-blue-600 w-full label-login"
