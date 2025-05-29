@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import PlainHeader from "../../components/PlainHeader";
 
 export default function AddPage() {
   const [name, setName] = useState("");
@@ -168,13 +169,7 @@ export default function AddPage() {
 
   return (
     <div>
-      <header>
-        <img src="./src/asses/Appbar.svg" alt="" />
-        <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
-          <img src={"/images/appbar-logo.svg"} alt="logo" />
-          <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
-        </nav>
-      </header>
+      <PlainHeader />
 
       <div className="mt-2 p-2 md:max-w-4xl md:m-auto">
         <div className="flex justify-between">
@@ -357,7 +352,10 @@ export default function AddPage() {
                 <div className="flex relative h-30" key={link}>
                   <img
                     className="rounded-xl w-full object-cover h-28"
-                    src={link}
+                    src={link.replace(
+                      "/upload/",
+                      "/upload/c_fill,f_auto,q_auto/"
+                    )}
                     alt=""
                   />
                   <div

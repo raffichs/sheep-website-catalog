@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import PlainHeader from "../../components/PlainHeader";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -20,12 +21,7 @@ export default function LoginPage() {
 
   return (
     <div>
-      <header>
-        <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
-          <img src={"/images/appbar-logo.svg"} className="h-11" alt="logo" />
-          <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
-        </nav>
-      </header>
+      <PlainHeader />
 
       <div className="md:w-[30rem] md:mx-auto px-14 py-5 my-20 mx-10 shadow-md bg-[#f5f5f5]">
         <h1 className="text-lg">Login Admin</h1>

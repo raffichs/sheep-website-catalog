@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
 import { Link, Navigate } from "react-router-dom";
+import PlainHeader from "../../components/PlainHeader";
 
 export default function AdminPage() {
   const [cards, setCard] = useState(null);
@@ -69,12 +70,7 @@ export default function AdminPage() {
 
   return (
     <div className="root">
-      <header>
-        <nav className="flex justify-center items-center gap-2 p-2 bg-dark-green">
-          <img src={"/images/appbar-logo.svg"} className="h-11" alt="logo" />
-          <span className="md:text-2xl">PETERNAK NING SALATIGA</span>
-        </nav>
-      </header>
+      <PlainHeader />
 
       <main className="catalog mt-2 md:mt-7 p-2 md:max-w-4xl md:m-auto">
         <div>
@@ -177,7 +173,10 @@ export default function AdminPage() {
                   className={`rounded-t-md object-cover w-full h-40 ${
                     card.status === "sold" ? "grayscale" : ""
                   }`}
-                  src={card.photos[0]}
+                  src={card.photos[0].replace(
+                    "/upload/",
+                    "/upload/c_fill,f_auto,q_auto/"
+                  )}
                   alt={card.name}
                 />
                 <div className="px-2 pb-2">
