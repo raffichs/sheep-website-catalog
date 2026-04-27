@@ -105,7 +105,7 @@ export default function CardPage() {
               {card.photos.map((photo, index) => (
                 <div key={index} className="">
                   <img
-                    src={card.photos[0].replace(
+                    src={photo.replace(
                       "/upload/",
                       "/upload/c_fill,f_auto,q_auto/"
                     )}
